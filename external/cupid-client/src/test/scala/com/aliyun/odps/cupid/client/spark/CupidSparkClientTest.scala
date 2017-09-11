@@ -29,7 +29,7 @@ import org.junit.{Assert, Test}
 class CupidSparkClientTest {
   private final val sparkClientServiceImpl: Service = new SparkClientServiceImpl
 
-  @Test
+  // @Test
   @throws(classOf[IOException])
   def testRequestCupid {
     val cupidRpcChannelProxyTest: CupidRpcChannelProxyTest = new CupidRpcChannelProxyTest(sparkClientServiceImpl)

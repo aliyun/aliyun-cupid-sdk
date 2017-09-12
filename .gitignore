@@ -1,4 +1,5 @@
 .idea/
+target/
 core/target/
 external/cupid-client/target/
 external/cupid-datasource/target/

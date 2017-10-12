@@ -104,7 +104,7 @@ spark.master = yarn-cluster
 ```
 git clone **current-project**
 cd aliyun-cupid-sdk
-mvn -T 1C -gs clean install -DskipTests
+mvn -T 1C clean install -DskipTests
 ```
 
 ### Case by Case

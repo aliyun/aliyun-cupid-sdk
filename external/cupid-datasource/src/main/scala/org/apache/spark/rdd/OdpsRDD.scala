@@ -78,7 +78,16 @@ class OdpsRDD[W: ClassTag](
     else {
       val getPartitionSizeResult = PartitionSizeUtil.getPartitonSize(project, table, columns, part, splitSize, numPartition, this.id)
       logInfo("project=" + project + ",table=" + table + ",partitionsize=" + getPartitionSizeResult.getSize)
-      val partitionSplitInfo = RuntimeContext.get().generatePartitonInfo(id.toString, getPartitionSizeResult.getSplitTempDir)
+      val partitionSplitInfo = System.getenv("META_LOOKUP_NAME") match {
+        case null =>
+          val a = sc.parallelize(1 to 1, 1).map(i => {
+            RuntimeContext.get().
+              generatePartitonInfo(id.toString, getPartitionSizeResult.getSplitTempDir)
+          }).collect()
+          a(0)
+        case _ => RuntimeContext.get().
+          generatePartitonInfo(id.toString, getPartitionSizeResult.getSplitTempDir)
+      }
       var odpsPartitons = ArrayBuffer[OdpsPartition]()
       partitionSplitInfo.getSplitinfoitermList.foreach(splitinfoiterm => {
         odpsPartitons += new OdpsPartition(id, splitinfoiterm.getPartitionid, splitinfoiterm.getSplitfilestart.toString, splitinfoiterm.getSplitfileend.toString, splitinfoiterm.getSchemafilestart.toString, splitinfoiterm.getSchemafileend.toString, getPartitionSizeResult.getSplitTempDir)

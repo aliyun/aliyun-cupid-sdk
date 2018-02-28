@@ -28,7 +28,6 @@ import org.apache.spark.sql.SparkSession
   * 1. build aliyun-cupid-sdk please set modelVolumeDir with real volume path
   * 2. properly set spark.defaults.conf must have [spark.hadoop.odps.cupid.volume.paths=odps://projectName/volumeName/]
   * 3. bin/spark-submit --master yarn-cluster --class com.aliyun.odps.spark.examples.mllib.KmeansModelSaveToVolume
-  * --jars /path/to/external/hadoop-aliyun-fs-2.7.1.jar
   * /path/to/aliyun-cupid-sdk/examples/spark-examples/target/spark-examples_2.11-1.0.0-SNAPSHOT-shaded.jar
   */
 object KmeansModelSaveToVolume {
@@ -43,11 +42,6 @@ object KmeansModelSaveToVolume {
     val spark = SparkSession
       .builder()
       .appName("KmeansModelSaveToVolume")
-      .config("spark.hadoop.volume.internal", "true")
-      .config("spark.hadoop.fs.odps.impl", "org.apache.hadoop.fs.aliyun.volume.InternalVolumeFileSystem")
-      .config(
-        "spark.hadoop.fs.AbstractFileSystem.odps.impl",
-        "org.apache.hadoop.fs.aliyun.volume.abstractfsimpl.InternalVolumeFs")
       .getOrCreate()
 
     val sc = spark.sparkContext

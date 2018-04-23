@@ -260,6 +260,7 @@ mvn -T 1C clean install -DskipTests
 <h2 id="5.1">5.1 WordCount案例</h2>
 Spark运行简单的WordCount。
 案例代码如下。
+
 ```
 package com.aliyun.odps.spark.examples
 import org.apache.spark.sql.SparkSession
@@ -322,6 +323,7 @@ object SparkUnstructuredDataCompute {
 ```
 <h2 id="5.3">5.3 MaxCompute Table ReadWrite案例</h2>
 读写MaxCompute Table，转化为Spark RDD。
+
 ```
 ⚠️注意：
 案例Demo中的Project/Table必须存在，或者更改为对应的Project/Table。

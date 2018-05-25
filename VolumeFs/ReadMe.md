@@ -101,21 +101,6 @@ export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$HADOOP_HOME/share/hadoop/odps/lib/*
         <name>odps.service.endpoint</name>
         <value>TBD</value>
     </property>
-
-    <property>
-        <name>odps.end.point</name>
-        <value>TBD</value>
-    </property>
-
-    <property>
-        <name>odps.project.name</name>
-        <value>TBD</value>
-    </property>
-
-    <property>
-        <name>odps.tunnel.endpoint</name>
-        <value>TBD</value>
-    </property>
 </configuration>
 ```
 

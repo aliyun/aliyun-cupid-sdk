@@ -38,6 +38,13 @@
 
 <h1 id="1">1 开发环境准备</h1>
 
+**!!!注意!!!**
+
+master分支的文档以及代码仅支持MaxCompute AliSpark **专有云输出**
+
+[MaxCompute AliSpark公共云入口](https://github.com/aliyun/aliyun-cupid-sdk/tree/1.1.0-public)
+
+
 <h2 id="1.1">1.1 下载并解压spark包</h2>
 
 1. 下载[Spark on MaxCompute](https://promotion.aliyun.com/ntms/act/dedicatedcloud/doc.html)安装包。

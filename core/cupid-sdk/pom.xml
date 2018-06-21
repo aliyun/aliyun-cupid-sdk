@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <modelVersion>4.0.0</modelVersion>  
+  <parent> 
+    <groupId>com.aliyun.odps</groupId>  
+    <artifactId>cupid-root</artifactId>  
+    <version>0.0.1-DEV-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath> 
+  </parent>  
+  <groupId>com.aliyun.odps</groupId>  
+  <artifactId>cupid-sdk</artifactId>  
+  <version>0.0.1-DEV-SNAPSHOT</version>
+  <packaging>jar</packaging>  
+  <dependencies> 
+    <dependency> 
+      <groupId>com.google.protobuf</groupId>  
+      <artifactId>protobuf-java</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>com.github.rholder</groupId>  
+      <artifactId>guava-retrying</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>com.google.guava</groupId>  
+      <artifactId>guava</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>com.aliyun.odps</groupId>  
+      <artifactId>odps-sdk-core</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>com.google.code.gson</groupId>  
+      <artifactId>gson</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.apache.httpcomponents</groupId>  
+      <artifactId>httpclient</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>commons-codec</groupId>  
+      <artifactId>commons-codec</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>junit</groupId>  
+      <artifactId>junit</artifactId>  
+      <scope>test</scope> 
+    </dependency>  
+    <dependency> 
+      <groupId>log4j</groupId>  
+      <artifactId>log4j</artifactId> 
+    </dependency>  
+    <dependency> 
+      <groupId>org.apache.ant</groupId>  
+      <artifactId>ant</artifactId> 
+    </dependency>  
+    <!-- interaction -->  
+    <dependency> 
+      <groupId>org.eclipse.jetty.websocket</groupId>  
+      <artifactId>websocket-client</artifactId>  
+      <version>9.2.19.v20160908</version> 
+    </dependency>  
+    <dependency> 
+      <groupId>jline</groupId>  
+      <artifactId>jline</artifactId>  
+      <version>0.9.94</version> 
+    </dependency> 
+  </dependencies>  
+  <build> 
+    <plugins> 
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-compiler-plugin</artifactId>  
+        <configuration> 
+          <source>${java.version}</source>  
+          <target>${java.version}</target>  
+          <encoding>UTF-8</encoding> 
+        </configuration> 
+      </plugin>  
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-antrun-plugin</artifactId>  
+        <executions> 
+          <execution> 
+            <id>compile-protoc</id>  
+            <phase>generate-sources</phase>  
+            <goals> 
+              <goal>run</goal> 
+            </goals>  
+            <configuration> 
+              <tasks> 
+                <mkdir dir="target/generated-sources"/>  
+                <path id="proto.path"> 
+                  <fileset dir="protocol/"> 
+                    <include name="cupidtaskparam.proto"/>  
+                    <include name="yarnclientparam.proto"/>  
+                    <include name="partitionsplitinfo.proto"/>  
+                    <include name="cupidsavepaths.proto"/>  
+                    <include name="volumepathscap.proto"/>  
+                    <include name="cupidsubprocessrpc.proto"/>  
+                    <include name="proxy_am.proto"/>  
+                    <include name="jobstatus_update.proto"/>  
+                    <include name="cupid_client_rpc.proto"/>  
+                    <include name="ststokeninfoparam.proto"/>  
+                    <include name="proxy_nuwa.proto"/>  
+                    <include name="cupid_task_service.proto"/>  
+                    <include name="cupid_subprocess_service.proto"/> 
+                  </fileset> 
+                </path>  
+                <pathconvert pathsep=" " property="proto.files" refid="proto.path"/>  
+                <exec executable="bin/protoc/protoc-2.5.0.sh"> 
+                  <arg value="--java_out=${basedir}/target/generated-sources"/>  
+                  <arg value="-I${basedir}/protocol/"/>  
+                  <arg line="${proto.files}"/> 
+                </exec> 
+              </tasks>  
+              <sourceRoot>target/generated-sources</sourceRoot> 
+            </configuration> 
+          </execution> 
+        </executions> 
+      </plugin>  
+      <plugin> 
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-shade-plugin</artifactId>  
+        <executions> 
+          <execution> 
+            <phase>package</phase>  
+            <goals> 
+              <goal>shade</goal> 
+            </goals>  
+            <configuration> 
+              <shadedArtifactAttached>false</shadedArtifactAttached>  
+              <artifactSet> 
+                <includes> 
+                  <include>com.aliyun.odps.cupid.interaction.jetty:unused</include>  
+                  <include>com.aliyun.odps.cupid.interaction.jline:unused</include>  
+                  <include>org.eclipse.jetty:jetty-io</include>  
+                  <include>org.eclipse.jetty:jetty-util</include>  
+                  <include>org.eclipse.jetty.websocket:websocket-client</include>  
+                  <include>org.eclipse.jetty.websocket:websocket-api</include>  
+                  <include>org.eclipse.jetty.websocket:websocket-common</include>  
+                  <include>jline:jline</include> 
+                </includes> 
+              </artifactSet>  
+              <relocations> 
+                <relocation> 
+                  <pattern>org.eclipse.jetty</pattern>  
+                  <shadedPattern>com.aliyun.odps.cupid.interaction.jetty</shadedPattern> 
+                </relocation>  
+                <relocation> 
+                  <pattern>jline</pattern>  
+                  <shadedPattern>com.aliyun.odps.cupid.interaction.jline</shadedPattern> 
+                </relocation> 
+              </relocations> 
+            </configuration> 
+          </execution> 
+        </executions> 
+      </plugin> 
+    </plugins> 
+  </build>  
+  <contributors><contributor><properties><provider>xianyang.zhaoxiany@alibaba-inc.com</provider><codeName>null</codeName><codeUrl>http://gitlab.alibaba-inc.com/odps/cupid-sdk.git commit:1896008</codeUrl><description>contributors added by SCM Plugin, please don't modify it!</description></properties></contributor></contributors>
+</project>

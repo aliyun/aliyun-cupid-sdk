@@ -1,0 +1,11 @@
+package apsara.odps.cupid.client.protocol;
+option java_outer_classname = "CupidClientRpc";
+
+option java_generic_services = true;
+
+message RpcProtocol
+{
+    required string serviceName = 1;
+    required int32 methodId = 2;
+    optional bytes requestBody = 3;
+}

@@ -21,6 +21,7 @@ import java.io.EOFException
 import com.aliyun.odps._
 import com.aliyun.odps.`type`.{ArrayTypeInfo, DecimalTypeInfo, MapTypeInfo, TypeInfo}
 import com.aliyun.odps.account.AliyunAccount
+import com.aliyun.odps.cupid.CupidSession
 import com.aliyun.odps.cupid.runtime.TableReaderIterator
 import com.aliyun.odps.cupid.table.{TableImplUtils, _}
 import com.aliyun.odps.data.{ArrayRecord, Binary, Char, Record, Varchar}
@@ -149,8 +150,7 @@ class OdpsInternalRDD(
 
   def getPartitionInfoFromTunnel(): Array[Partition] = {
     var ret = null.asInstanceOf[Array[Partition]]
-    val account = new AliyunAccount(accessId, accessKey)
-    val odps = new Odps(account)
+    val odps = CupidSession.get().odps()
     odps.setDefaultProject(project)
     odps.setEndpoint(odpsUrl)
     val tunnel = new TableTunnel(odps)
@@ -213,8 +213,7 @@ class OdpsInternalRDD(
 
   class LocalIter(theSplit: Partition, context: TaskContext) extends NextIterator[InternalRow] {
     val split = theSplit.asInstanceOf[OdpsInternalRDDPartition]
-    val account = new AliyunAccount(accessId, accessKey)
-    val odps = new Odps(account)
+    val odps = CupidSession.get().odps()
     odps.setDefaultProject(project)
     odps.setEndpoint(odpsUrl)
     val tunnel = new TableTunnel(odps)

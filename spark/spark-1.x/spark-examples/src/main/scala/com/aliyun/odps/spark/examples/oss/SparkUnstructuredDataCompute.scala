@@ -30,8 +30,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 object SparkUnstructuredDataCompute {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("SparkUnstructuredDataCompute")
-    conf.set("spark.hadoop.fs.oss.accessKeyId", "***")
-    conf.set("spark.hadoop.fs.oss.accessKeySecret", "***")
+    conf.set("spark.hadoop.fs.oss.credentials.provider", "org.apache.hadoop.fs.aliyun.oss.AliyunStsTokenCredentialsProvider")
+    conf.set("spark.hadoop.fs.oss.ststoken.roleArn", "acs:ram::****:role/aliyunodpsdefaultrole")
     conf.set("spark.hadoop.fs.oss.endpoint", "oss-cn-hangzhou-zmf.aliyuncs.com")
     val sc = new SparkContext(conf)
     try {

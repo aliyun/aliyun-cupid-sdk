@@ -21,6 +21,7 @@ import java.math.BigDecimal
 import com.aliyun.odps._
 import com.aliyun.odps.`type`._
 import com.aliyun.odps.account.AliyunAccount
+import com.aliyun.odps.cupid.CupidSession
 import com.aliyun.odps.data.{Binary, Char, Record, SimpleStruct, Varchar}
 import com.aliyun.odps.tunnel.TableTunnel
 import org.apache.spark.rdd.{OdpsRDDActions, RDD}
@@ -236,8 +237,8 @@ case class InsertIntoOdpsTable(relation: OdpsRelation,
         logError("overwrite mode is not supported by local mode")
       }
       tunnelSaveTable(
-        hadoopConf.get("odps.access.id"),
-        hadoopConf.get("odps.access.key"),
+        hadoopConf.get("odps.access.id", null),
+        hadoopConf.get("odps.access.key", null),
         hadoopConf.get("odps.end.point"),
         table.database,
         table.name,
@@ -278,8 +279,7 @@ case class InsertIntoOdpsTable(relation: OdpsRelation,
 
     val transferFunc = sqlContext.sparkContext.clean(transfer _)
 
-    val account = new AliyunAccount(accessId, accessKey)
-    val odps = new Odps(account)
+    val odps = CupidSession.get().odps()
 
     odps.setDefaultProject(project)
     odps.setEndpoint(odpsUrl)
@@ -336,8 +336,7 @@ case class InsertIntoOdpsTable(relation: OdpsRelation,
     val uploadId = uploadSession.getId
 
     def writeToFile(context: TaskContext, iter: Iterator[InternalRow]) {
-      val account_ = new AliyunAccount(accessId, accessKey)
-      val odps_ = new Odps(account_)
+      val odps_ = CupidSession.get().odps()
       odps_.setDefaultProject(project)
       odps_.setEndpoint(odpsUrl)
       val tunnel_ = new TableTunnel(odps_)

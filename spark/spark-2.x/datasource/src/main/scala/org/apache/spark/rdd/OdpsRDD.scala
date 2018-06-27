@@ -36,6 +36,7 @@ import com.aliyun.odps.account.AliyunAccount
 import com.aliyun.odps.Odps
 import com.aliyun.odps.tunnel.TableTunnel
 import com.aliyun.odps.PartitionSpec
+import com.aliyun.odps.cupid.CupidSession
 import com.aliyun.odps.cupid.table.TableImplUtils
 import com.aliyun.odps.cupid.table.{InputSplit, TableInputHandle, TableInputInfo, TableReader}
 
@@ -130,8 +131,7 @@ class OdpsRDD[W: ClassTag](
 
   def getPartitionInfoFromTunnel(): Array[Partition] = {
     var ret = null.asInstanceOf[Array[Partition]]
-    val account = new AliyunAccount(accessId, accessKey)
-    val odps = new Odps(account)
+    val odps = CupidSession.get().odps()
     odps.setDefaultProject(project)
     odps.setEndpoint(odpsUrl)
     val tunnel = new TableTunnel(odps)
@@ -191,8 +191,7 @@ class OdpsRDD[W: ClassTag](
 
   class LocalIter(theSplit: Partition, context: TaskContext) extends NextIterator[W] {
     val split = theSplit.asInstanceOf[OdpsPartition]
-    val account = new AliyunAccount(accessId, accessKey)
-    val odps = new Odps(account)
+    val odps = CupidSession.get().odps()
     odps.setDefaultProject(project)
     odps.setEndpoint(odpsUrl)
     val tunnel = new TableTunnel(odps)

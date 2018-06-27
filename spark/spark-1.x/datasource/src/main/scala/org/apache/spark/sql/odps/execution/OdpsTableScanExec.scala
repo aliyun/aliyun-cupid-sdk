@@ -86,8 +86,8 @@ case class OdpsTableScanExec(
     val rdd = if (partSplits.isEmpty) {
       new OdpsInternalRDD(
         sparkContext,
-        hadoopConf.get("odps.access.id"),
-        hadoopConf.get("odps.access.key"),
+        hadoopConf.get("odps.access.id", null),
+        hadoopConf.get("odps.access.key", null),
         hadoopConf.get("odps.end.point"),
         relation.table.database,
         relation.table.name,
@@ -103,8 +103,8 @@ case class OdpsTableScanExec(
         Future[RDD[org.apache.spark.sql.catalyst.InternalRow]] {
           val rdd = new OdpsInternalRDD(
             sparkContext,
-            hadoopConf.get("odps.access.id"),
-            hadoopConf.get("odps.access.key"),
+            hadoopConf.get("odps.access.id", null),
+            hadoopConf.get("odps.access.key", null),
             hadoopConf.get("odps.end.point"),
             relation.table.database,
             relation.table.name,

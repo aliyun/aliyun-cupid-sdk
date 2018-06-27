@@ -7,6 +7,7 @@
 * [4. 主要模块以及Maven依赖说明](#4)
 * [5. 应用开发](#5)
 * [6. AliSpark Roadmap](#6)
+* [7. AliSpark安全访问OSS](#7)
 
 
 <h1 id="1">1. aliyun-cupid-sdk简介</h1>
@@ -114,13 +115,21 @@ spark.hadoop.odps.cupid.bearer.token.enable=true
 
 目前AliSpark支持:
 	
-* Java/Scala 所有离线场景, GraphX、Mllib、RDD、Spark-SQL等
+* Java/Scala 所有离线场景, GraphX、Mllib、RDD、Spark-SQL, PySpark等
 * 能够读写 MaxCompute Table
 * OSS 非结构化存储支持
 
 下个迭代上线支持:
 
-* PySpark、SparkR全面支持
 * Streaming场景与MaxCompute深度集成 [TT、DataHub、Kafka]
 * 交互式类需求 Spark-Shell Spark-SQL-Shell PySpark-Shell等
 * Spark as Service需求 MaxCompute自研Client模式
+
+<h1 id="7">7. AliSpark安全访问OSS</h1>
+
+详细文档见 [OssStsToken](docs/ossStsToken.md)
+
+具体Demo请参考:
+
+* [Spark-1.x 安全OSS访问Demo](spark/spark-1.x/spark-examples/src/main/scala/com/aliyun/odps/spark/examples/oss/SparkUnstructuredDataCompute.scala)
+* [Spark-2.x 安全OSS访问Demo](spark/spark-2.x/spark-examples/src/main/scala/com/aliyun/odps/spark/examples/oss/SparkUnstructuredDataCompute.scala)

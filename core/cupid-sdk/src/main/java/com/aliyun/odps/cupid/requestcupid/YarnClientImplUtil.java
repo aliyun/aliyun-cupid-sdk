@@ -147,17 +147,21 @@ public class YarnClientImplUtil {
             CupidSession overrideCupidSession) throws OdpsException {
         CupidSession cupidSession = overrideCupidSession == null ? CupidSession.get() : overrideCupidSession;
 
-        String trackurlHost = cupidSession.conf.get("odps.moye.trackurl.host",
-                "http://jobview.odps.aliyun-inc.com");
+        String endPoint = cupidSession.conf.get("odps.end.point");
+        // if contains maxcompute.aliyun means it's public cloud
+        String defaultTrackurlHost = endPoint != null && endPoint.toLowerCase().contains("maxcompute.aliyun") ?
+            "http://jobview.odps.aliyun.com" :
+            "http://jobview.odps.aliyun-inc.com";
+
+        String trackurlHost = cupidSession.conf.get("odps.moye.trackurl.host", defaultTrackurlHost);
         TrackUrl trackUrl = new TrackUrl(cupidSession.odps, trackurlHost);
         String hours = cupidSession.conf.get("odps.moye.trackurl.dutation", "72");
         String cupidType = cupidSession.conf.get("odps.moye.runtime.type", "spark");
         String lookupName = cupidSession.getJobLookupName();
-        if (trackurlHost != "") {
+        if (!trackurlHost.equals("")) {
             trackUrl.setLogViewHost(trackurlHost);
         }
-        String webproxyEndPoint = cupidSession.conf.get("odps.cupid.webproxy.endpoint",
-                "http://service.odps.aliyun-inc.com/api");
+        String webproxyEndPoint = cupidSession.conf.get("odps.cupid.webproxy.endpoint", endPoint);
         String trackUrlStr;
         if ("true".equals(cupidSession.conf.get("odps.cupid.proxy.enable", "false"))) {
             trackUrlStr = trackUrl.genCupidTrackUrl(amInstance,

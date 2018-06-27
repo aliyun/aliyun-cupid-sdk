@@ -37,14 +37,16 @@ import scala.language.implicitConversions
 import scala.reflect.{ClassTag, classTag}
 import java.util.UUID
 
+import com.aliyun.odps.cupid.CupidSession
+
 
 /**
   * @author liwei.li
   */
 class OdpsOps(@transient sc: SparkContext)
   extends Logging with Serializable {
-  val accessId: String = sc.getConf.get("odps.access.id")
-  val accessKey: String = sc.getConf.get("odps.access.key")
+  val accessId: String = sc.getConf.get("odps.access.id", null)
+  val accessKey: String = sc.getConf.get("odps.access.key", null)
   val odpsUrl: String = sc.getConf.get("odps.end.point")
 
   private def ParsePartSpec(partSpecIn: String): String = {
@@ -217,8 +219,7 @@ class OdpsOps(@transient sc: SparkContext)
       record
     }
     val func = sc.clean(transfer0 _)
-    val account = new AliyunAccount(accessId, accessKey)
-    val odps = new Odps(account)
+    val odps = CupidSession.get().odps()
     odps.setDefaultProject(project)
     odps.setEndpoint(odpsUrl)
     val tunnel = new TableTunnel(odps)
@@ -228,8 +229,7 @@ class OdpsOps(@transient sc: SparkContext)
     val uploadId = uploadSession.getId
 
     def writeToFile(context: TaskContext, iter: Iterator[T]) {
-      val account_ = new AliyunAccount(accessId, accessKey)
-      val odps_ = new Odps(account_)
+      val odps_ = CupidSession.get().odps()
       odps_.setDefaultProject(project)
       odps_.setEndpoint(odpsUrl)
       val tunnel_ = new TableTunnel(odps_)
@@ -260,8 +260,7 @@ class OdpsOps(@transient sc: SparkContext)
       record
     }
     val func = sc.clean(transfer0 _)
-    val account = new AliyunAccount(accessId, accessKey)
-    val odps = new Odps(account)
+    val odps = CupidSession.get().odps()
     odps.setDefaultProject(project)
     odps.setEndpoint(odpsUrl)
     val tunnel = new TableTunnel(odps)
@@ -270,8 +269,7 @@ class OdpsOps(@transient sc: SparkContext)
     val uploadId = uploadSession.getId
 
     def writeToFile(context: TaskContext, iter: Iterator[T]) {
-      val account_ = new AliyunAccount(accessId, accessKey)
-      val odps_ = new Odps(account_)
+      val odps_ = CupidSession.get().odps()
       odps_.setDefaultProject(project)
       odps_.setEndpoint(odpsUrl)
       val tunnel_ = new TableTunnel(odps_)

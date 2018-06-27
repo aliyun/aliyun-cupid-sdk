@@ -8,6 +8,8 @@
 * [5. 应用开发](#5)
 * [6. AliSpark Roadmap](#6)
 * [7. AliSpark安全访问OSS](#7)
+* [8. AliSpark-1.x Quick-Start](#8)
+* [9. AliSpark-2.x Quick-Start](#9)
 
 
 <h1 id="1">1. aliyun-cupid-sdk简介</h1>
@@ -133,3 +135,49 @@ spark.hadoop.odps.cupid.bearer.token.enable=true
 
 * [Spark-1.x 安全OSS访问Demo](spark/spark-1.x/spark-examples/src/main/scala/com/aliyun/odps/spark/examples/oss/SparkUnstructuredDataCompute.scala)
 * [Spark-2.x 安全OSS访问Demo](spark/spark-2.x/spark-examples/src/main/scala/com/aliyun/odps/spark/examples/oss/SparkUnstructuredDataCompute.scala)
+
+<h1 id="8">8. Quick-Start AliSpark-1.x Demo</h1>
+
+可通过 [Create-AliSpark-1.x-APP.sh](archetypes/Create-AliSpark-1.x-APP.sh) 脚本快速场景一个用于QuickStart的Maven Project
+
+```
+
+# Usage: sh Create-AliSpark-1.x-APP.sh <app_name> <target_path>
+sh Create-AliSpark-1.x-APP.sh spark-1.x-demo /tmp/
+cd /tmp/spark-1.x-demo
+mvn clean package
+
+# 冒烟测试 
+# 1 利用编译出来的 shaded jar包
+# 2 按照文档3.1所示 下载AliSpark客户端
+# 3 填写文档3.3中 应该填写的相关配置项
+
+# 执行spark-submit命令 如下
+$SPARK_HOME/bin/spark-submit \
+        --master yarn-cluster \
+        --class SparkPi \
+        /tmp/spark-1.x-demo/target/AliSpark-1.x-quickstart-1.0-SNAPSHOT-shaded.jar
+```
+
+<h1 id="9">9. Quick-Start AliSpark-2.x Demo</h1>
+
+可通过 [Create-AliSpark-2.x-APP.sh](archetypes/Create-AliSpark-2.x-APP.sh) 脚本快速场景一个用于QuickStart的Maven Project
+
+```
+
+# Usage: sh Create-AliSpark-2.x-APP.sh <app_name> <target_path>
+sh Create-AliSpark-2.x-APP.sh spark-2.x-demo /tmp/
+cd /tmp/spark-2.x-demo
+mvn clean package
+
+# 冒烟测试 
+# 1 利用编译出来的 shaded jar包
+# 2 按照文档3.1所示 下载AliSpark客户端
+# 3 填写文档3.3中 应该填写的相关配置项
+
+# 执行spark-submit命令 如下
+$SPARK_HOME/bin/spark-submit \
+        --master yarn-cluster \
+        --class SparkPi \
+        /tmp/spark-2.x-demo/target/AliSpark-2.x-quickstart-1.0-SNAPSHOT-shaded.jar
+```

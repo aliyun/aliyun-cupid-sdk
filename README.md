@@ -29,6 +29,10 @@ mvn -X -T 1C clean package -Ppublic -DskipTests
 
 下载 [Spark on MaxCompute](https://github.com/aliyun/aliyun-cupid-sdk) 安装包
 
+* [spark-1.6.3](http://repo.aliyun.com/download/spark-1.6.3-public.tar.gz)
+
+* [spark-2.3.0](http://repo.aliyun.com/download/spark-2.3.0-public.tar.gz)
+
 <h2 id="3.2">3.2 设置环境变量</h2>
 
 JAVA_HOME设置

@@ -1,0 +1,100 @@
+package apsara.odps.cupid.nuwa.protocol;
+
+option cc_generic_services = true;
+option java_generic_services = true;
+
+message Void
+{
+}
+
+message String
+{
+  optional string value = 1;
+}
+
+message Int
+{
+  optional int32 value = 1;
+}
+
+message Long
+{
+  optional int64 value = 1;
+}
+
+message Bool
+{
+  optional bool value = 1;
+}
+
+message StringToStringPair
+{
+  optional string key = 1;
+  optional string value = 2;
+}
+
+message NuwaUri
+{
+  required string value = 1;
+}
+
+message FileContent
+{
+  required string value = 1;
+}
+
+message NuwaUriFileContentMap
+{
+  repeated StringToStringPair params = 1; 
+}
+
+message Children
+{
+  repeated NuwaUri paths = 1;
+}
+
+message NuwaSubscribedItemStatus
+{
+  required bool exist = 1;
+  repeated StringToStringPair items = 2; 
+}
+
+message FileRequest
+{
+  required NuwaUri uri = 1;
+  optional FileContent content = 2;
+  optional Bool ephemeral = 3;
+}
+
+service ProxyNuwaService
+{
+  rpc CreateFile(FileRequest) returns (Void);
+  rpc DeleteFile(FileRequest) returns (Void);
+  rpc UpdateFile(FileRequest) returns (Void);
+  rpc ReadFile(FileRequest) returns (FileContent);
+  rpc IsExist(FileRequest) returns (Bool);
+  rpc SubscribeFolder(FileRequest) returns (Long);
+  rpc UnsubscribeFolder(FileRequest) returns (Void);
+  rpc SubscribeFile(FileRequest) returns (Long);
+  rpc UnsubscribeFile(FileRequest) returns (Void);
+  rpc ReadFolder(FileRequest) returns (NuwaUriFileContentMap);
+  rpc ListFolder(FileRequest) returns (Children);
+}
+
+message SubscribeCallbackRequest
+{
+  optional Long id = 1;
+  optional NuwaSubscribedItemStatus status = 2;
+}
+
+message SessionCallbackRequest
+{
+  optional Long id = 1;
+  optional Bool valid = 2;
+}
+
+service ProxyNuwaCallbackService
+{
+  rpc HandleSubscribeCallback(SubscribeCallbackRequest) returns (Void);
+  rpc HandleSessionCallback(SessionCallbackRequest) returns (Void);
+}

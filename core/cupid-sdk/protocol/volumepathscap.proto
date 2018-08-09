@@ -1,0 +1,21 @@
+package apsara.odps.cupid.protocol;
+option java_outer_classname = "VolumePathsCapProtos";
+
+enum VolumeCap 
+{
+  Read = 1;
+  Write = 2;
+  ReadAndWrite = 3;
+}
+
+message PathInfo
+{
+	optional string volumepath = 1;
+    optional VolumeCap volumecap = 2;
+}
+
+message VolumePaths
+{
+    repeated  PathInfo pathinfo = 1;
+}
+

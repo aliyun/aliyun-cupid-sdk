@@ -1,0 +1,14 @@
+Import('env')
+
+env = env.Clone()
+
+proto_srcs = env.Glob('*.proto')
+cupid_proto_cpp_srcs = env.aProtoCpp('.', proto_srcs)
+Export('cupid_proto_cpp_srcs')
+
+protocol_libs=['protobuf']
+
+env.aSharedLibrary(
+     target = 'cupid_protocol',
+     source = cupid_proto_cpp_srcs,
+     LIBS = protocol_libs)

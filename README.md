@@ -54,27 +54,14 @@ export PATH=$SPARK_HOME/bin:$PATH
 
 <h2 id="3.3">3.3 设置Spark-defaults.conf</h2>
 
-在 **$SPARK_HOME/conf** 路径下存在spark-defaults.conf文件，需要在该文件中设置MaxCompute相关的账号信息后，才可以提交Spark任务到MaxCompute。默认配置内容如下，将空白部分根据实际的账号信息填上即可。
+在 **$SPARK_HOME/conf** 路径下存在spark-defaults.conf.template文件，这个可以作为spark-defaults.conf的模版，需要在该文件中设置MaxCompute相关的账号信息后，才可以提交Spark任务到MaxCompute。默认配置内容如下，将空白部分根据实际的账号信息填上即可，其余的配置可以保持不变。
 
 ```
 # OdpsAccount Info Setting
-spark.hadoop.odps.project.name=
-spark.hadoop.odps.access.id=
-spark.hadoop.odps.access.key=
-spark.hadoop.odps.end.point=
-# spark.hadoop.odps.moye.trackurl.host=
-# spark.hadoop.odps.cupid.webproxy.endpoint=
-
-# Integrate with MaxCompute Projects and Tables
-spark.sql.catalogImplementation=odps
-
-# Cupid Longtime Job
-# spark.hadoop.odps.cupid.engine.running.type=longtime
-# spark.hadoop.odps.cupid.job.capability.duration.hours=8640
-# spark.hadoop.odps.moye.trackurl.dutation=8640
-
-spark.hadoop.odps.cupid.security.enable=true
-spark.hadoop.odps.cupid.bearer.token.enable=true
+spark.hadoop.odps.project.name =
+spark.hadoop.odps.access.id =
+spark.hadoop.odps.access.key =
+spark.hadoop.odps.end.point = http://service.cn.maxcompute.aliyun.com/api
 ```
 
 <h1 id="4">4 主要模块以及Maven依赖说明</h1>
@@ -91,7 +78,7 @@ spark.hadoop.odps.cupid.bearer.token.enable=true
 <dependency>
 	<groupId>com.aliyun.odps</groupId>
 	<artifactId>cupid-sdk</artifactId>
-	<version>TBD</version>
+	<version>3.3.2-public</version>
 	<scope>provided</scope>
 </dependency>
 
@@ -99,14 +86,14 @@ spark.hadoop.odps.cupid.bearer.token.enable=true
 <dependency>
 	<groupId>com.aliyun.odps</groupId>
 	<artifactId>odps-spark-datasource_2.10</artifactId>
-	<version>TBD</version>
+	<version>3.3.2-public</version>
 </dependency>
 
 # Spark-2.x请依赖此模块
 <dependency>
   	<groupId>com.aliyun.odps</groupId>
   	<artifactId>odps-spark-datasource_2.11</artifactId>
-  	<version>TBD</version>
+  	<version>3.3.2-public</version>
 </dependency>
 ```
 

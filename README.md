@@ -42,7 +42,7 @@
 
 master分支的文档以及代码仅支持MaxCompute AliSpark **专有云输出**
 
-[MaxCompute AliSpark公共云入口](https://github.com/aliyun/aliyun-cupid-sdk/tree/1.1.0-public)
+[MaxCompute AliSpark公共云入口](https://github.com/aliyun/aliyun-cupid-sdk/tree/3.3.2-public)
 
 
 <h2 id="1.1">1.1 下载并解压spark包</h2>

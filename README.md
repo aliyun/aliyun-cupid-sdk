@@ -21,6 +21,8 @@
 ```
 # 需要指定 public profile
 mvn -X -T 1C clean package -Ppublic -DskipTests
+# 安装到Maven本地Repo中
+mvn -X -T 1C install -Ppublic -DskipTests -Dgpg.skip
 ```
 
 <h1 id="3">3. AliSpark环境准备</h1>

@@ -267,7 +267,7 @@ class OdpsInternalRDD(
         val r = reader.read().asInstanceOf[ArrayRecord]
         if (r != null) {
           columns.zipWithIndex.foreach(target => {
-            ret.update(target._2, transferOdpsData(target._2, r.get(target._2)))
+            ret.update(target._2, transferOdpsData(target._2, r.get(target._1)))
           })
         } else {
           finished = true
@@ -372,7 +372,7 @@ class OdpsInternalRDD(
 
           if (r != null) {
             for (i <- 0 until columns.length) {
-              reusedRow.update(i, transferOdpsData(i, r.get(i)))
+              reusedRow.update(i, transferOdpsData(i, r.get(columns(i))))
             }
           }
           reusedRow

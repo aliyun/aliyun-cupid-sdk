@@ -39,15 +39,17 @@ object PreOdpsInsertCastAndRename extends Rule[LogicalPlan] {
     case p: LogicalPlan if !p.childrenResolved => p
 
     // We are inserting into an OdpsRelation
-    case i @ InsertIntoOdpsTable(l , _, child, _, _) => {
+    case i @ InsertIntoOdpsTable(l , partition, child, _, _) => {
       // First, make sure the data to be inserted have the same number of fields with the
       // schema of the relation.
-      if (l.dataCols.size != child.output.size) {
+      val providedPartition = partition.filter(_._2.isDefined)
+      val output = l.output.filter(x => !providedPartition.contains(x.name))
+      if (output.size != child.output.size) {
         sys.error(
           s"$l requires that the query in the SELECT clause of the INSERT INTO/OVERWRITE " +
-            s"statement generates the same number of columns as its schema.")
+            s"statement generates no less than that of columns as its schema.")
       }
-      castAndRenameChildOutput(i, l.output, child)
+      castAndRenameChildOutput(i, output, child)
     }
   }
 

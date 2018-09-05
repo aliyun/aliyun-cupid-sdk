@@ -25,7 +25,7 @@ import com.aliyun.odps.cupid.CupidSession
 import com.aliyun.odps.task.SQLTask
 import com.google.common.base.Objects
 import org.apache.spark.Logging
-import org.apache.spark.sql.catalyst.analysis.{Catalog, MultiInstanceRelation}
+import org.apache.spark.sql.catalyst.analysis.{Catalog, MultiInstanceRelation, NoSuchTableException}
 import org.apache.spark.sql.catalyst.expressions.{And, Attribute, AttributeReference, BoundReference, Cast, Expression, InterpretedPredicate, Literal}
 import org.apache.spark.sql.catalyst.plans.logical.{LeafNode, LogicalPlan, Statistics, Subquery}
 import org.apache.spark.sql.catalyst.{CatalystConf, InternalRow, TableIdentifier}
@@ -260,14 +260,30 @@ class OdpsMetastoreCatalog(val conf: CatalystConf) extends Catalog with Logging 
                       tableIdent: TableIdentifier,
                       alias: Option[String]): LogicalPlan = {
     val qualifiedTableName = getQualifiedTableName(tableIdent)
-    val table = getTable(qualifiedTableName.database, qualifiedTableName.name)
+    if (odps.tables().exists(qualifiedTableName.database, qualifiedTableName.name)) {
+      val table = getTable(qualifiedTableName.database, qualifiedTableName.name)
 
-    val qualifiedTable = OdpsRelation(
-      table,
-      table.dataSchema.asNullable.toAttributes,
-      table.partitionSchema.asNullable.toAttributes
-    )
-    alias.map(a => Subquery(a, qualifiedTable)).getOrElse(qualifiedTable)
+      val qualifiedTable = OdpsRelation(
+        table,
+        table.dataSchema.asNullable.toAttributes,
+        table.partitionSchema.asNullable.toAttributes
+      )
+
+      // If an alias was specified by the lookup, wrap the plan in a subquery so that attributes are
+      // properly qualified with this alias.
+      alias.map(a => Subquery(a, qualifiedTable)).getOrElse(qualifiedTable)
+    } else {
+      val tableName = getTableName(tableIdent)
+      val table = tables.get(tableName)
+      if (table == null) {
+        throw new NoSuchTableException
+      }
+      val tableWithQualifiers = Subquery(tableName, table)
+
+      // If an alias was specified by the lookup, wrap the plan in a subquery so that attributes are
+      // properly qualified with this alias.
+      alias.map(a => Subquery(a, tableWithQualifiers)).getOrElse(tableWithQualifiers)
+    }
   }
 
   /**

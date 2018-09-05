@@ -16,6 +16,8 @@
  */
 package org.apache.spark.sql.odps
 
+import java.util.Properties
+
 import org.apache.spark.api.java.JavaSparkContext
 import org.apache.spark.sql.catalyst.analysis.{Analyzer, Catalog, CleanupAliases, ComputeCurrentTime, HiveTypeCoercion, ResolveUpCast}
 import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan
@@ -25,6 +27,7 @@ import org.apache.spark.sql.execution.ui.SQLListener
 import org.apache.spark.sql.execution.{CacheManager, ExtractPythonUDFs, datasources}
 import org.apache.spark.sql.{SQLContext, Strategy}
 import org.apache.spark.{Logging, SparkContext}
+import scala.collection.JavaConversions._
 
 class OdpsContext(
                    sc: SparkContext,
@@ -107,4 +110,12 @@ class OdpsContext(
 
   @transient
   override protected[sql] lazy val analyzer = odpsAnalyzer
+
+  override def setConf(props: Properties): Unit = {
+    props.foreach { case (k, v) => sc.hadoopConfiguration.set(k, v) }
+  }
+
+  override def setConf(key: String, value: String): Unit = {
+    sc.hadoopConfiguration.set(key, value)
+  }
 }

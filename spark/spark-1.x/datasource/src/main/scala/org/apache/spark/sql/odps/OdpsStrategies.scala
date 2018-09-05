@@ -47,7 +47,7 @@ object PreOdpsInsertCastAndRename extends Rule[LogicalPlan] {
       if (output.size != child.output.size) {
         sys.error(
           s"$l requires that the query in the SELECT clause of the INSERT INTO/OVERWRITE " +
-            s"statement generates no less than that of columns as its schema.")
+            s"statement generates the same number of columns as its schema.")
       }
       castAndRenameChildOutput(i, output, child)
     }

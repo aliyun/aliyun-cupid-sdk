@@ -296,14 +296,18 @@ class OdpsInternalRDD(
 
   class CupidIter(split: OdpsInternalRDDPartition, context: TaskContext)
     extends NextIterator[InternalRow] {
-    logInfo("rddId=" + id +
-      ",tableInputHandleId=" + split.tableInputHandle.getTableInputHandleId +
-      ",index=" + split.index +
-      ",splitFileStart=" + split.splitFileStart +
-      ",splitFileEnd=" + split.splitFileEnd +
-      ",schemaSplitFileStart=" + split.schemaSplitFileStart +
-      ",schemaSplitFileEnd=" + split.schemaSplitFileEnd +
-      ",splitTempDir=" + split.splitTempDir)
+    if (split.tableInputHandle != null) {
+      logInfo("rddId=" + id +
+        ",tableInputHandleId=" + split.tableInputHandle.getTableInputHandleId +
+        ",index=" + split.index +
+        ",splitFileStart=" + split.splitFileStart +
+        ",splitFileEnd=" + split.splitFileEnd +
+        ",schemaSplitFileStart=" + split.schemaSplitFileStart +
+        ",schemaSplitFileEnd=" + split.schemaSplitFileEnd +
+        ",splitTempDir=" + split.splitTempDir)
+    } else {
+      logWarning("rddId=" + id + " with null tableInputHandle.")
+    }
 
 
     var schema: TableSchema = _

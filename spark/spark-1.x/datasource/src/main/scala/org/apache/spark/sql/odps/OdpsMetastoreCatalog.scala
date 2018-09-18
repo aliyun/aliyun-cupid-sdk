@@ -265,8 +265,8 @@ class OdpsMetastoreCatalog(val conf: CatalystConf) extends Catalog with Logging 
 
       val qualifiedTable = OdpsRelation(
         table,
-        table.dataSchema.asNullable.toAttributes,
-        table.partitionSchema.asNullable.toAttributes
+        table.dataSchema.asNullable.toAttributes.map(_.withQualifiers(List(table.name))),
+        table.partitionSchema.asNullable.toAttributes.map(_.withQualifiers(List(table.name)))
       )
 
       // If an alias was specified by the lookup, wrap the plan in a subquery so that attributes are

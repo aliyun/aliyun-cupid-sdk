@@ -8,7 +8,7 @@
 5. 需要同时把plugin的jar以及python版本的sdk加入到spark-submit启动参数里
 
 ## 需要文件
-1. http://mvnrepo.alibaba-inc.com/nexus/content/groups/public/com/aliyun/odps/odps-spark-datasource/1.0.3/odps-spark-datasource-1.0.3.jar(这个是最新的plugin jar包地址)
+1. http://repo.aliyun.com/download/odps-spark-datasource-1.0.3.jar  (这个是最新的plugin jar包地址)
 2. odps_sdk.py
 
 ## 运行命令

@@ -105,6 +105,8 @@ spark.hadoop.odps.end.point = http://service.cn.maxcompute.aliyun.com/api
 
 * [Spark-Examples for Spark-1.x](spark/spark-1.x/spark-examples/)
 * [Spark-Examples for Spark-2.x](spark/spark-2.x/spark-examples/)
+* [PySpark支持 for Spark-1.x](spark/spark-2.x/datasource/src/main/python)
+* [PySpark支持 for Spark-2.x](spark/spark-1.x/datasource/src/main/python)
 
 <h1 id="6">6. AliSpark Roadmap</h1>
 

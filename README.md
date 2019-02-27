@@ -33,7 +33,7 @@ mvn -X -T 1C install -Ppublic -DskipTests -Dgpg.skip
 
 * [spark-1.6.3](http://repo.aliyun.com/download/spark-1.6.3-public.tar.gz)
 
-* [spark-2.3.0](http://repo.aliyun.com/download/spark-2.3.0-public.tar.gz)
+* [spark-2.3.0](http://repo.aliyun.com/download/spark-2.3.0-odps0.30.0.tar.gz)
 
 <h2 id="3.2">3.2 设置环境变量</h2>
 

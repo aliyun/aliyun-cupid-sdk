@@ -229,6 +229,11 @@
                 <artifactId>hadoop-yarn-common</artifactId>
                 <version>${hadoop.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba.cdo</groupId>
+                <artifactId>timetunnel-clientng</artifactId>
+                <version>0.5.4</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -352,11 +357,6 @@
                                 <artifactId>odps-sdk-commons</artifactId>
                             </exclusion>
                         </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.alibaba.cdo</groupId>
-                        <artifactId>timetunnel-clientng</artifactId>
-                        <version>0.5.4</version>
                     </dependency>
                 </dependencies>
             </dependencyManagement>

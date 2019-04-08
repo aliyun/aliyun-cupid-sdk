@@ -16,7 +16,7 @@ fi
 
 # will try to install archetypes in local mvn repo
 pushd $cupidRoot/archetypes/spark-2.x/
-mvn clean install
+mvn clean install -Ppublic
 popd
 
 # create the template maven app into targetPath

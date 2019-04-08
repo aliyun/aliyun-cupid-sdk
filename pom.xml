@@ -53,6 +53,7 @@
         <hadoop.version>2.7.1</hadoop.version>
         <odps.sdk.version>0.29.5</odps.sdk.version>
         <cupid.project.version>3.3.2-public</cupid.project.version>
+        <protoc.executable>bin/protoc/protoc-2.5.0.sh</protoc.executable>
     </properties>
 
     <modules>
@@ -229,11 +230,6 @@
                 <artifactId>hadoop-yarn-common</artifactId>
                 <version>${hadoop.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.alibaba.cdo</groupId>
-                <artifactId>timetunnel-clientng</artifactId>
-                <version>0.5.4</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -296,21 +292,6 @@
                         <target>${java.version}</target>
                         <encoding>UTF-8</encoding>
                     </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.5</version>
-                    <executions>
-                        <execution>
-                            <id>sign-artifacts</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>sign</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
 
                 <plugin>
@@ -392,6 +373,12 @@
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
+        </profile>
+        <profile>
+            <id>windows</id>
+            <properties>
+                <protoc.executable>bin/protoc/protoc.exe</protoc.executable>
+            </properties>
         </profile>
     </profiles>
 </project>

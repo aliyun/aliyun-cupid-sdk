@@ -109,7 +109,7 @@
                                     </fileset>
                                 </path>
                                 <pathconvert pathsep=" " property="proto.files" refid="proto.path"/>
-                                <exec executable="bin/protoc/protoc-2.5.0.sh">
+                                <exec executable="${protoc.executable}">
                                     <arg value="--java_out=${basedir}/target/generated-sources"/>
                                     <arg value="-I${basedir}/protocol/"/>
                                     <arg line="${proto.files}"/>

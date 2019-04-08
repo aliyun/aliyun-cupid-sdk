@@ -64,11 +64,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.cdo</groupId>
-            <artifactId>timetunnel-clientng</artifactId>
-            <version>0.5.4</version>
-        </dependency>
-        <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-actors</artifactId>
         </dependency>

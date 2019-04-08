@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 usage="Usage: sh Create-AliSpark-1.x-APP.sh <app_name> <target_path>"
 
 if [ $# -ne 2 ]; then
@@ -16,7 +17,7 @@ fi
 
 # will try to install archetypes in local mvn repo
 pushd $cupidRoot/archetypes/spark-1.x/
-mvn clean install
+mvn clean install -Ppublic
 popd
 
 # create the template maven app into targetPath

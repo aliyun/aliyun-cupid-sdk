@@ -56,14 +56,18 @@ export PATH=$SPARK_HOME/bin:$PATH
 
 <h2 id="3.3">3.3 设置Spark-defaults.conf</h2>
 
-在 **$SPARK_HOME/conf** 路径下存在spark-defaults.conf.template文件，这个可以作为spark-defaults.conf的模版，需要在该文件中设置MaxCompute相关的账号信息后，才可以提交Spark任务到MaxCompute。默认配置内容如下，将空白部分根据实际的账号信息填上即可，其余的配置可以保持不变。
+在 **$SPARK_HOME/conf** 路径下存在spark-defaults.conf.template文件，这个可以作为spark-defaults.conf的模版，需要在该文件中设置MaxCompute相关的账号信息后，才可以提交Spark任务到MaxCompute。默认配置内容如下，将空白部分根据实际的账号信息填上即可，其余配置保持不变。
 
 ```
 # OdpsAccount Info Setting
-spark.hadoop.odps.project.name =
-spark.hadoop.odps.access.id =
-spark.hadoop.odps.access.key =
-spark.hadoop.odps.end.point = http://service.cn.maxcompute.aliyun.com/api
+spark.hadoop.odps.project.name=
+spark.hadoop.odps.access.id=
+spark.hadoop.odps.access.key=
+spark.hadoop.odps.task.major.version=cupid_v2
+spark.hadoop.odps.cupid.container.image.enable=true
+spark.hadoop.odps.cupid.container.vm.engine.type=hyper
+spark.hadoop.odps.end.point=http://service.cn.maxcompute.aliyun.com/api
+spark.hadoop.odps.runtime.end.point=http://service.cn.maxcompute.aliyuninc.com/api
 ```
 
 <h1 id="4">4 主要模块以及Maven依赖说明</h1>
@@ -71,8 +75,8 @@ spark.hadoop.odps.end.point = http://service.cn.maxcompute.aliyun.com/api
 项目中Spark相关的依赖模块主要有三个:
 
 * cupid-sdk **[开源应用接入MaxCompute SDK]**
-* odps-spark-datasource_2.10 **[Spark-1.x MaxCompute数据访问API]**
 * odps-spark-datasource_2.11 **[Spark-2.x MaxCompute数据访问API]**
+* odps-spark-datasource_2.10 **[Spark-1.x MaxCompute数据访问API]**
 
 ```
 # scope请设置为provided
@@ -84,18 +88,18 @@ spark.hadoop.odps.end.point = http://service.cn.maxcompute.aliyun.com/api
 	<scope>provided</scope>
 </dependency>
 
-# Spark-1.x请依赖此模块
-<dependency>
-	<groupId>com.aliyun.odps</groupId>
-	<artifactId>odps-spark-datasource_2.10</artifactId>
-	<version>3.3.2-public</version>
-</dependency>
-
 # Spark-2.x请依赖此模块
 <dependency>
   	<groupId>com.aliyun.odps</groupId>
   	<artifactId>odps-spark-datasource_2.11</artifactId>
   	<version>3.3.2-public</version>
+</dependency>
+
+# Spark-1.x请依赖此模块
+<dependency>
+	<groupId>com.aliyun.odps</groupId>
+	<artifactId>odps-spark-datasource_2.10</artifactId>
+	<version>3.3.2-public</version>
 </dependency>
 ```
 
@@ -131,7 +135,30 @@ spark.hadoop.odps.end.point = http://service.cn.maxcompute.aliyun.com/api
 * [Spark-1.x 安全OSS访问Demo](spark/spark-1.x/spark-examples/src/main/scala/com/aliyun/odps/spark/examples/oss/SparkUnstructuredDataCompute.scala)
 * [Spark-2.x 安全OSS访问Demo](spark/spark-2.x/spark-examples/src/main/scala/com/aliyun/odps/spark/examples/oss/SparkUnstructuredDataCompute.scala)
 
-<h1 id="8">8. Quick-Start AliSpark-1.x Demo</h1>
+<h1 id="8">8. Quick-Start AliSpark-2.x Demo</h1>
+
+可通过 [Create-AliSpark-2.x-APP.sh](archetypes/Create-AliSpark-2.x-APP.sh) 脚本快速场景一个用于QuickStart的Maven Project
+
+```
+
+# Usage: sh Create-AliSpark-2.x-APP.sh <app_name> <target_path>
+sh Create-AliSpark-2.x-APP.sh spark-2.x-demo /tmp/
+cd /tmp/spark-2.x-demo
+mvn clean package
+
+# 冒烟测试 
+# 1 利用编译出来的 shaded jar包
+# 2 按照文档3.1所示 下载AliSpark客户端
+# 3 填写文档3.3中 应该填写的相关配置项
+
+# 执行spark-submit命令 如下
+$SPARK_HOME/bin/spark-submit \
+        --master yarn-cluster \
+        --class SparkPi \
+        /tmp/spark-2.x-demo/target/AliSpark-2.x-quickstart-1.0-SNAPSHOT-shaded.jar
+```
+
+<h1 id="9">9. Quick-Start AliSpark-1.x Demo</h1>
 
 可通过 [Create-AliSpark-1.x-APP.sh](archetypes/Create-AliSpark-1.x-APP.sh) 脚本快速场景一个用于QuickStart的Maven Project
 
@@ -154,25 +181,3 @@ $SPARK_HOME/bin/spark-submit \
         /tmp/spark-1.x-demo/target/AliSpark-1.x-quickstart-1.0-SNAPSHOT-shaded.jar
 ```
 
-<h1 id="9">9. Quick-Start AliSpark-2.x Demo</h1>
-
-可通过 [Create-AliSpark-2.x-APP.sh](archetypes/Create-AliSpark-2.x-APP.sh) 脚本快速场景一个用于QuickStart的Maven Project
-
-```
-
-# Usage: sh Create-AliSpark-2.x-APP.sh <app_name> <target_path>
-sh Create-AliSpark-2.x-APP.sh spark-2.x-demo /tmp/
-cd /tmp/spark-2.x-demo
-mvn clean package
-
-# 冒烟测试 
-# 1 利用编译出来的 shaded jar包
-# 2 按照文档3.1所示 下载AliSpark客户端
-# 3 填写文档3.3中 应该填写的相关配置项
-
-# 执行spark-submit命令 如下
-$SPARK_HOME/bin/spark-submit \
-        --master yarn-cluster \
-        --class SparkPi \
-        /tmp/spark-2.x-demo/target/AliSpark-2.x-quickstart-1.0-SNAPSHOT-shaded.jar
-```

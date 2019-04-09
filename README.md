@@ -1,5 +1,7 @@
 * [1. aliyun-cupid-sdk简介](#1)
 * [2. 项目编译须知](#2)
+	+ [2.1 编译安装cupid-sdk](#2.1)
+	+ [2.2 编译安装odps-spark-datasource](#2.2)
 * [3. AliSpark环境准备](#3)
 	+ [3.1 下载并解压spark包](#3.1)
 	+ [3.2 设置环境变量](#3.2)
@@ -18,11 +20,32 @@
 
 <h1 id="2">2. 项目编译须知</h1>
 
+clone本项目，并checkout到3.3.2-public分支
+
 ```
-# 需要指定 public profile
-mvn -X -T 1C clean package -Ppublic -DskipTests
-# 安装到Maven本地Repo中
-mvn -X -T 1C install -Ppublic -DskipTests -Dgpg.skip
+git clone git@github.com :aliyun/aliyun-cupid-sdk.git
+cd ${path to aliyun-cupid-sdk}
+git checkout 3.3.2-public
+```
+
+为了让AliSpark运行在MaxCompute中，需要依赖cupid-sdk;为了读MaxCompute表，需要依赖odps-spark-datasource;这两个模块需要用户在本地编译安装。
+
+<h2 id="2.1">2.1 编译安装cupid-sdk</h2>
+
+```
+cd ${path to aliyun-cupid-sdk}/core/cupid-sdk/
+mvn clean install -Ppublic -DskipTests
+```
+
+<h2 id="2.2">2.2 编译安装odps-spark-datasource</h2>
+
+```
+// for spark-2.x
+cd ${path to aliyun-cupid-sdk}/spark/spark-2.x/datasource
+mvn clean install -Ppublic -DskipTests
+// for spark-1.x
+cd ${path to aliyun-cupid-sdk}/spark/spark-1.x/datasource
+mvn clean install -Ppublic -DskipTests
 ```
 
 <h1 id="3">3. AliSpark环境准备</h1>

@@ -10,8 +10,8 @@
 * [5. 应用开发](#5)
 * [6. AliSpark Roadmap](#6)
 * [7. AliSpark安全访问OSS](#7)
-* [8. AliSpark-1.x Quick-Start](#8)
-* [9. AliSpark-2.x Quick-Start](#9)
+* [8. AliSpark-2.x Quick-Start](#8)
+* [9. AliSpark-1.x Quick-Start](#9)
 
 
 <h1 id="1">1. aliyun-cupid-sdk简介</h1>

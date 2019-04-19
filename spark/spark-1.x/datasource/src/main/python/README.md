@@ -8,7 +8,7 @@
 5. 需要同时把plugin的jar以及python版本的sdk加入到spark-submit启动参数里
 
 ## 需要文件
-1. http://mvnrepo.alibaba-inc.com/nexus/content/groups/public/com/aliyun/odps/odps-spark-datasource/1.0.3/odps-spark-datasource-1.0.3.jar(这个是最新的plugin jar包地址)
+1. odps-spark-datasource-x.x.x.jar 需要从aliyun-cupid-sdk/spark/spark-2.x/datasource编译得到
 2. odps_sdk.py
 
 ## 运行命令
@@ -82,7 +82,7 @@ PS. local模式运行一定要用driver-class-path，而不能用--jars, 所有�
 
 ```
 
-spark-submit --master yarn-cluster --jars odps-spark-datasource-1.0.3.jar --py-files odps_sdk.py example.py
+spark-submit --master yarn-cluster --jars odps-spark-datasource-1.0.3.jar --py-files odps_sdk.py example.py --files odps.zip
 
 
 ```

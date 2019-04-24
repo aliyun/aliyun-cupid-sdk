@@ -90,7 +90,7 @@ spark.hadoop.odps.task.major.version=cupid_v2
 spark.hadoop.odps.cupid.container.image.enable=true
 spark.hadoop.odps.cupid.container.vm.engine.type=hyper
 spark.hadoop.odps.end.point=http://service.cn.maxcompute.aliyun.com/api
-spark.hadoop.odps.runtime.end.point=http://service.cn.maxcompute.aliyuninc.com/api
+spark.hadoop.odps.runtime.end.point=http://service.cn.maxcompute.aliyun-inc.com/api
 spark.sql.catalogImplementation=odps
 ```
 

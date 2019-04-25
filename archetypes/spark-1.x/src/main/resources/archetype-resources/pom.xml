@@ -23,7 +23,7 @@
         <spark.version>1.6.3</spark.version>
 
         <!--TODO Modify Version After public-cupid RELEASED-->
-        <cupid.project.version>3.3.2-public</cupid.project.version>
+        <cupid.project.version>3.3.3-public</cupid.project.version>
 
     </properties>
 

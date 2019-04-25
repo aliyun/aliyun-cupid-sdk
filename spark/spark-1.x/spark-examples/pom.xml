@@ -20,13 +20,13 @@
     <parent>
         <groupId>com.aliyun.odps</groupId>
         <artifactId>cupid-spark-1.x</artifactId>
-        <version>3.3.2-public</version>
+        <version>3.3.3-public</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.aliyun.odps</groupId>
     <artifactId>spark-examples_${scala.binary.version}</artifactId>
-    <version>3.3.2-public</version>
+    <version>3.3.3-public</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -79,10 +79,6 @@
         <dependency>
             <groupId>com.aliyun.odps</groupId>
             <artifactId>odps-spark-datasource_${scala.binary.version}</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.aliyun.odps</groupId>
-            <artifactId>odps-spark-client_${scala.binary.version}</artifactId>
         </dependency>
 
         <dependency>

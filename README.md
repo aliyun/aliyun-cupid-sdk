@@ -20,12 +20,12 @@
 
 <h1 id="2">2. 项目编译须知</h1>
 
-clone本项目，并checkout到3.3.2-public分支
+clone本项目，并checkout到3.3.3-public分支
 
 ```
 git clone git@github.com :aliyun/aliyun-cupid-sdk.git
 cd ${path to aliyun-cupid-sdk}
-git checkout 3.3.2-public
+git checkout 3.3.3-public
 ```
 
 为了让AliSpark运行在MaxCompute中，需要依赖cupid-sdk;为了读MaxCompute表，需要依赖odps-spark-datasource;这两个模块需要用户在本地编译安装。
@@ -108,7 +108,7 @@ spark.sql.catalogImplementation=odps
 <dependency>
 	<groupId>com.aliyun.odps</groupId>
 	<artifactId>cupid-sdk</artifactId>
-	<version>3.3.2-public</version>
+	<version>3.3.3-public</version>
 	<scope>provided</scope>
 </dependency>
 
@@ -116,14 +116,14 @@ spark.sql.catalogImplementation=odps
 <dependency>
   	<groupId>com.aliyun.odps</groupId>
   	<artifactId>odps-spark-datasource_2.11</artifactId>
-  	<version>3.3.2-public</version>
+  	<version>3.3.3-public</version>
 </dependency>
 
 # Spark-1.x请依赖此模块
 <dependency>
 	<groupId>com.aliyun.odps</groupId>
 	<artifactId>odps-spark-datasource_2.10</artifactId>
-	<version>3.3.2-public</version>
+	<version>3.3.3-public</version>
 </dependency>
 ```
 

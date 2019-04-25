@@ -13,7 +13,7 @@
 
     <groupId>com.aliyun.odps</groupId>
     <artifactId>cupid-root</artifactId>
-    <version>3.3.2-public</version>
+    <version>3.3.3-public</version>
 
     <packaging>pom</packaging>
     <name>cupid-root</name>
@@ -52,7 +52,7 @@
         <java.version>1.7</java.version>
         <hadoop.version>2.7.1</hadoop.version>
         <odps.sdk.version>0.29.5</odps.sdk.version>
-        <cupid.project.version>3.3.2-public</cupid.project.version>
+        <cupid.project.version>3.3.3-public</cupid.project.version>
         <protoc.executable>bin/protoc/protoc-2.5.0.sh</protoc.executable>
     </properties>
 
@@ -179,11 +179,6 @@
             </dependency>
             <dependency>
                 <groupId>com.aliyun.odps</groupId>
-                <artifactId>odps-spark-client_2.10</artifactId>
-                <version>${cupid.project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.aliyun.odps</groupId>
                 <artifactId>odps-spark-datasource_2.11</artifactId>
                 <version>${cupid.project.version}</version>
                 <exclusions>
@@ -192,11 +187,6 @@
                         <artifactId>lz4</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.aliyun.odps</groupId>
-                <artifactId>odps-spark-client_2.11</artifactId>
-                <version>${cupid.project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.aliyun.odps</groupId>
@@ -296,6 +286,21 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.5</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.17</version>
                 </plugin>
@@ -349,6 +354,10 @@
                 <odps.sdk.version>0.28.4-public</odps.sdk.version>
             </properties>
 
+            <modules>
+                <module>hadoop/hadoop-fs-oss</module>
+            </modules>
+
             <build>
                 <plugins>
                     <plugin>
@@ -359,6 +368,11 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>

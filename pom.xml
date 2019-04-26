@@ -52,7 +52,7 @@
         <java.version>1.7</java.version>
         <hadoop.version>2.7.1</hadoop.version>
         <odps.sdk.version>0.29.5</odps.sdk.version>
-        <cupid.project.version>3.3.2-public</cupid.project.version>
+        <cupid.project.version>3.3.3-public</cupid.project.version>
         <protoc.executable>bin/protoc/protoc-2.5.0.sh</protoc.executable>
     </properties>
 

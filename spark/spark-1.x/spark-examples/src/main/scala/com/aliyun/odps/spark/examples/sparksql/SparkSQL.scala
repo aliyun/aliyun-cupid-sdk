@@ -37,10 +37,6 @@ object SparkSQL {
 
     val project = sc.getConf.get("odps.project.name")
 
-    sql("select count(1) from cupid_wordcount").show()
-    sql("select id from cupid_wordcount limit 10").show()
-    sql("select id, count(id) from cupid_wordcount group by id").show()
-
     //init and test drop table
     try {
       sql("DROP TABLE IF EXISTS spark_sql_test_table")

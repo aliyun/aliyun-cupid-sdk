@@ -7,19 +7,12 @@
 * odps-spark-datasource 用默认的compile scope
 
 ```
-<dependency>
-    <groupId>org.apache.spark</groupId>
-    <artifactId>spark-mllib_${scala.binary.version}</artifactId>
-    <version>${spark.version}</version>
-    <scope>provided</scope>
-</dependency>
-
-<dependency>
-    <groupId>org.apache.spark</groupId>
-    <artifactId>spark-sql_${scala.binary.version}</artifactId>
-    <version>${spark.version}</version>
-    <scope>provided</scope>
-</dependency>
+<properties>
+    <spark.version>1.6.3</spark.version>
+    <cupid.sdk.version>3.3.3-public</cupid.sdk.version>
+    <scala.version>2.10.4</scala.version>
+    <scala.binary.version>2.10</scala.binary.version>
+</properties>
 
 <dependency>
     <groupId>org.apache.spark</groupId>
@@ -27,16 +20,53 @@
     <version>${spark.version}</version>
     <scope>provided</scope>
 </dependency>
-
 <dependency>
-    <groupId>com.aliyun.odps</groupId>
-    <artifactId>cupid-sdk</artifactId>
+    <groupId>org.apache.spark</groupId>
+    <artifactId>spark-sql_${scala.binary.version}</artifactId>
+    <version>${spark.version}</version>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>org.apache.spark</groupId>
+    <artifactId>spark-mllib_${scala.binary.version}</artifactId>
+    <version>${spark.version}</version>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>org.apache.spark</groupId>
+    <artifactId>spark-streaming_${scala.binary.version}</artifactId>
+    <version>${spark.version}</version>
     <scope>provided</scope>
 </dependency>
 
 <dependency>
     <groupId>com.aliyun.odps</groupId>
+    <artifactId>cupid-sdk</artifactId>
+    <version>${cupid.sdk.version}</version>
+    <scope>provided</scope>
+</dependency>
+
+<dependency>
+    <groupId>com.aliyun.odps</groupId>
+    <artifactId>hadoop-fs-oss</artifactId>
+    <version>${cupid.sdk.version}</version>
+</dependency>
+
+<dependency>
+    <groupId>com.aliyun.odps</groupId>
     <artifactId>odps-spark-datasource_${scala.binary.version}</artifactId>
+    <version>${cupid.sdk.version}</version>
+</dependency>
+
+<dependency>
+    <groupId>org.scala-lang</groupId>
+    <artifactId>scala-library</artifactId>
+    <version>${scala.version}</version>
+</dependency>
+<dependency>
+    <groupId>org.scala-lang</groupId>
+    <artifactId>scala-actors</artifactId>
+    <version>${scala.version}</version>
 </dependency>
 ```
 
@@ -49,11 +79,11 @@
 提交方式
 
 ```
-Step 1. build aliyun-cupid-sdk
+Step 1. build example
 Step 2. properly set spark.defaults.conf
 Step 3. bin/spark-submit --master yarn-cluster --class \
       com.aliyun.odps.spark.examples.SparkPi \
-      ${ProjectRoot}/spark/spark-1.x/spark-examples/target/spark-examples_2.10-version-shaded.jar
+      ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
 ```
 
 
@@ -64,65 +94,28 @@ Step 3. bin/spark-submit --master yarn-cluster --class \
 提交方式
 
 ```
-Step 1. build aliyun-cupid-sdk
+Step 1. build example
 Step 2. properly set spark.defaults.conf
 Step 3. bin/spark-submit --master yarn-cluster --class \
       com.aliyun.odps.spark.examples.WordCount \
-      ${ProjectRoot}/spark/spark-1.x/spark-examples/target/spark-examples_2.10-version-shaded.jar
+      ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
 ```
 
+### Spark-SQL on MaxCompute Table
 
-
-### JavaOdpsTableReadWrite
-
-Java版 MaxCompute Table读写接口提供以下7种使用方法
-
-[详细代码](src/main/java/com/aliyun/odps/spark/examples/JavaOdpsTableReadWrite.java)
-
-```
-1. read from normal table via rdd api
-2. read from single partition column table via rdd api
-3. read from multi partition column table via rdd api
-4. read with multi partitionSpec definition via rdd api
-5. save rdd into normal table
-6. save rdd into partition table with single partition spec
-7. dynamic save rdd into partition table with multiple partition spec
-```
+[详细代码](src/main/scala/com/aliyun/odps/spark/examples/sparksql/SparkSQL.scala)
 
 提交方式
 
 ```
-Step 1. build aliyun-cupid-sdk
+# 运行可能会报Table Not Found的异常，因为用户的MaxCompute Project中没有代码中指定的表
+# 可以参考代码中的各种接口，实现对应Table的SparkSQL应用
+
+Step 1. build example
 Step 2. properly set spark.defaults.conf
 Step 3. bin/spark-submit --master yarn-cluster --class \
-      com.aliyun.odps.spark.examples.JavaOdpsTableReadWrite \
-      ${ProjectRoot}/spark/spark-1.x/spark-examples/target/spark-examples_2.10-version-shaded.jar
-```
-
-### OdpsTableReadWrite
-
-Scala版 MaxCompute Table读写接口提供以下7种使用方法
-
-[详细代码](src/main/scala/com/aliyun/odps/spark/examples/OdpsTableReadWrite.scala)
-
-```
-1. read from normal table via rdd api
-2. read from single partition column table via rdd api
-3. read from multi partition column table via rdd api
-4. read with multi partitionSpec definition via rdd api
-5. save rdd into normal table
-6. save rdd into partition table with single partition spec
-7. dynamic save rdd into partition table with multiple partition spec
-```
-
-提交方式
-
-```
-Step 1. build aliyun-cupid-sdk
-Step 2. properly set spark.defaults.conf
-Step 3. bin/spark-submit --master yarn-cluster --class \
-      com.aliyun.odps.spark.examples.OdpsTableReadWrite \
-      ${ProjectRoot}/spark/spark-1.x/spark-examples/target/spark-examples_2.10-version-shaded.jar
+      com.aliyun.odps.spark.examples.sparksql.SparkSQL \
+      ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
 ```
 
 ### GraphX PageRank
@@ -132,11 +125,11 @@ Step 3. bin/spark-submit --master yarn-cluster --class \
 提交方式
 
 ```
-Step 1. build aliyun-cupid-sdk
+Step 1. build example
 Step 2. properly set spark.defaults.conf
 Step 3. bin/spark-submit --master yarn-cluster --class \
       com.aliyun.odps.spark.examples.graphx.PageRank \
-      ${ProjectRoot}/spark/spark-1.x/spark-examples/target/spark-examples_2.10-version-shaded.jar
+      ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
 ```
 
 ### Mllib Kmeans-ON-OSS
@@ -158,7 +151,7 @@ Step 1. build aliyun-cupid-sdk
 Step 2. properly set spark.defaults.conf
 Step 3. bin/spark-submit --master yarn-cluster --class \
       com.aliyun.odps.spark.examples.mllib.KmeansModelSaveToOss \
-      ${ProjectRoot}/spark/spark-1.x/spark-examples/target/spark-examples_2.10-version-shaded.jar
+      ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
 ```
 
 ### OSS UnstructuredData
@@ -176,26 +169,9 @@ conf.set("spark.hadoop.fs.oss.accessKeySecret", "***")
 conf.set("spark.hadoop.fs.oss.endpoint", "oss-cn-hangzhou-zmf.aliyuncs.com")
 
 
-Step 1. build aliyun-cupid-sdk
+Step 1. build example
 Step 2. properly set spark.defaults.conf
 Step 3. bin/spark-submit --master yarn-cluster --class \
       com.aliyun.odps.spark.examples.oss.SparkUnstructuredDataCompute \
-      ${ProjectRoot}/spark/spark-1.x/spark-examples/target/spark-examples_2.10-version-shaded.jar
-```
-
-### Spark-SQL on MaxCompute Table
-
-[详细代码](src/main/scala/com/aliyun/odps/spark/examples/sparksql/SparkSQL.scala)
-
-提交方式
-
-```
-# 运行可能会报Table Not Found的异常，因为用户的MaxCompute Project中没有代码中指定的表
-# 可以参考代码中的各种接口，实现对应Table的SparkSQL应用
-
-Step 1. build aliyun-cupid-sdk
-Step 2. properly set spark.defaults.conf
-Step 3. bin/spark-submit --master yarn-cluster --class \
-      com.aliyun.odps.spark.examples.sparksql.SparkSQL \
-      ${ProjectRoot}/spark/spark-1.x/spark-examples/target/spark-examples_2.10-version-shaded.jar
+      ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
 ```

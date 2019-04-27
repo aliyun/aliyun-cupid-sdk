@@ -20,13 +20,13 @@
     <parent>
         <groupId>com.aliyun.odps</groupId>
         <artifactId>cupid-root</artifactId>
-        <version>3.3.2-public</version>
+        <version>3.3.3-public</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>com.aliyun.odps</groupId>
     <artifactId>cupid-spark-1.x</artifactId>
-    <version>3.3.2-public</version>
+    <version>3.3.3-public</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -39,7 +39,7 @@
 
     <modules>
         <module>datasource</module>
-        <module>spark-examples</module>
+        <!--<module>spark-examples</module>-->
     </modules>
 
     <dependencyManagement>

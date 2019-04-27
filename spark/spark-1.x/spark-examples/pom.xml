@@ -17,32 +17,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.aliyun.odps</groupId>
-        <artifactId>cupid-spark-1.x</artifactId>
-        <version>3.3.3-public</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+    <properties>
+        <spark.version>1.6.3</spark.version>
+        <cupid.sdk.version>3.3.3-public</cupid.sdk.version>
+        <scala.version>2.10.4</scala.version>
+        <scala.binary.version>2.10</scala.binary.version>
+    </properties>
 
     <groupId>com.aliyun.odps</groupId>
     <artifactId>spark-examples_${scala.binary.version}</artifactId>
     <version>3.3.3-public</version>
     <packaging>jar</packaging>
 
-    <properties>
-        <sbt.project.name>spark-examples</sbt.project.name>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming_${scala.binary.version}</artifactId>
-            <version>${spark.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-mllib_${scala.binary.version}</artifactId>
+            <artifactId>spark-core_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -54,50 +44,45 @@
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-hive_${scala.binary.version}</artifactId>
+            <artifactId>spark-mllib_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_${scala.binary.version}</artifactId>
+            <artifactId>spark-streaming_${scala.binary.version}</artifactId>
             <version>${spark.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyun.odps</groupId>
+            <artifactId>cupid-sdk</artifactId>
+            <version>${cupid.sdk.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.aliyun.odps</groupId>
             <artifactId>hadoop-fs-oss</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.aliyun.odps</groupId>
-            <artifactId>cupid-sdk</artifactId>
-            <scope>provided</scope>
+            <version>${cupid.sdk.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.aliyun.odps</groupId>
             <artifactId>odps-spark-datasource_${scala.binary.version}</artifactId>
+            <version>${cupid.sdk.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_${scala.binary.version}</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-actors</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.13</version>
+            <version>${scala.version}</version>
         </dependency>
     </dependencies>
 
@@ -142,70 +127,27 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>scala-compile-first</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>scala-test-compile-first</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>public</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>net.alchim31.maven</groupId>
-                        <artifactId>scala-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>scala-compile-first</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>compile</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>scala-test-compile-first</id>
-                                <phase>process-test-resources</phase>
-                                <goals>
-                                    <goal>testCompile</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>attach-scaladocs</id>
-                                <phase>site</phase>
-                                <goals>
-                                    <goal>doc-jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/TTStreamingExample.scala</exclude>
-                                <exclude>**/TTWalStreamingExample.scala</exclude>
-                            </excludes>
-                            <scalaVersion>${scala.version}</scalaVersion>
-                            <recompileMode>incremental</recompileMode>
-
-                            <args>
-                                <arg>-unchecked</arg>
-                                <arg>-deprecation</arg>
-                                <arg>-feature</arg>
-                            </args>
-                            <jvmArgs>
-                                <jvmArg>-Xms1024m</jvmArg>
-                                <jvmArg>-Xmx1024m</jvmArg>
-                                <jvmArg>-XX:PermSize=${PermGen}</jvmArg>
-                                <jvmArg>-XX:MaxPermSize=${MaxPermGen}</jvmArg>
-                            </jvmArgs>
-                            <javacArgs>
-                                <javacArg>-source</javacArg>
-                                <javacArg>${java.version}</javacArg>
-                                <javacArg>-target</javacArg>
-                                <javacArg>${java.version}</javacArg>
-                            </javacArgs>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

@@ -95,10 +95,10 @@ spark.sql.catalogImplementation=odps
 
 本项目提供两个应用构建模版，用户可以基于此模版进行开发，最后统一构建整个项目后用生成的应用包即可直接提交到MaxCompute集群上运行Spark应用。
 
-* [Spark-Examples for Spark-1.x](spark/spark-1.x/spark-examples/)
 * [Spark-Examples for Spark-2.x](spark/spark-2.x/spark-examples/)
-* [PySpark支持 for Spark-1.x](spark/spark-2.x/datasource/src/main/python)
-* [PySpark支持 for Spark-2.x](spark/spark-1.x/datasource/src/main/python)
+* [Spark-Examples for Spark-1.x](spark/spark-1.x/spark-examples/)
+* [PySpark支持 for Spark-2.x](spark/spark-2.x/datasource/src/main/python)
+* [PySpark支持 for Spark-1.x](spark/spark-1.x/datasource/src/main/python)
 
 命令如下:
 ```

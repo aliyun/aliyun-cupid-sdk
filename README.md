@@ -47,11 +47,10 @@ master分支的文档以及代码仅支持MaxCompute AliSpark **专有云输出*
 
 <h2 id="1.1">1.1 下载并解压spark包</h2>
 
-1. 下载[Spark on MaxCompute](http://repo.aliyun.com/download/spark-2.1.0-private-cloud-v3.5.0-20180710.tar.gz)安装包。
+1. 下载[Spark on MaxCompute](http://repo.aliyun.com/download/spark-2.1.0-private-cloud-v3.5.0-20190427.tar.gz)安装包。
 2. 对下载好的Spark on MaxCompute最新发布包进行解压，解压后的文件夹结构如下。
 ```
     .
-    |-- R
     |-- RELEASE
     |-- __spark_libs__.zip
     |-- bin

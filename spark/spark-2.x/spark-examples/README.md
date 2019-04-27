@@ -102,7 +102,7 @@ Step 3. bin/spark-submit --master yarn-cluster --class \
 
 ### SparkSQL on MaxCompute
 
-[详细代码](src/main/scala/com/aliyun/odps/spark/examples/SparkSQL.scala)
+[详细代码](src/main/scala/com/aliyun/odps/spark/examples/sparksql/SparkSQL.scala)
 
 提交方式
 

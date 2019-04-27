@@ -101,6 +101,23 @@ Step 3. bin/spark-submit --master yarn-cluster --class \
       ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
 ```
 
+### Spark-SQL on MaxCompute Table
+
+[详细代码](src/main/scala/com/aliyun/odps/spark/examples/sparksql/SparkSQL.scala)
+
+提交方式
+
+```
+# 运行可能会报Table Not Found的异常，因为用户的MaxCompute Project中没有代码中指定的表
+# 可以参考代码中的各种接口，实现对应Table的SparkSQL应用
+
+Step 1. build example
+Step 2. properly set spark.defaults.conf
+Step 3. bin/spark-submit --master yarn-cluster --class \
+      com.aliyun.odps.spark.examples.sparksql.SparkSQL \
+      ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
+```
+
 ### GraphX PageRank
 
 [详细代码](src/main/scala/com/aliyun/odps/spark/examples/graphx/PageRank.scala)
@@ -156,22 +173,5 @@ Step 1. build example
 Step 2. properly set spark.defaults.conf
 Step 3. bin/spark-submit --master yarn-cluster --class \
       com.aliyun.odps.spark.examples.oss.SparkUnstructuredDataCompute \
-      ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
-```
-
-### Spark-SQL on MaxCompute Table
-
-[详细代码](src/main/scala/com/aliyun/odps/spark/examples/sparksql/SparkSQL.scala)
-
-提交方式
-
-```
-# 运行可能会报Table Not Found的异常，因为用户的MaxCompute Project中没有代码中指定的表
-# 可以参考代码中的各种接口，实现对应Table的SparkSQL应用
-
-Step 1. build example
-Step 2. properly set spark.defaults.conf
-Step 3. bin/spark-submit --master yarn-cluster --class \
-      com.aliyun.odps.spark.examples.sparksql.SparkSQL \
       ${path to spark-examples}/target/spark-examples_2.10-3.3.3-public-shaded.jar
 ```

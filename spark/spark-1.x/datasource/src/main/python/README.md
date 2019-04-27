@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
 spark-submit --master local[4] --driver-class-path cupid/odps-spark-datasourcexxx.jar example.py
 
-PS. local模式运行一定要用driver-class-path，而不能用--jars, 所有文件均在当前路径
+PS. local模式运行一定要用driver-class-path，而不能用--jars
 
 ```
 

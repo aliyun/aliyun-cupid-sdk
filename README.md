@@ -18,9 +18,9 @@
 
 下载 [Spark on MaxCompute](https://github.com/aliyun/aliyun-cupid-sdk) 安装包
 
-* [spark-1.6.3](http://repo.aliyun.com/download/spark-1.6.3-public.tar.gz)
+* [spark-1.6.3](http://odps-repo.oss-cn-hangzhou.aliyuncs.com/spark/1.6.3-public/spark-1.6.3-public.tar.gz?spm=a2c4g.11186623.2.11.224b4b69Fkh7LR&file=spark-1.6.3-public.tar.gz)
 
-* [spark-2.3.0](http://repo.aliyun.com/download/spark-2.3.0-odps0.30.0.tar.gz)
+* [spark-2.3.0](http://odps-repo.oss-cn-hangzhou.aliyuncs.com/spark/2.3.0-odps0.30.0/spark-2.3.0-odps0.30.0.tar.gz?spm=a2c4g.11186623.2.12.224b4b69Fkh7LR&file=spark-2.3.0-odps0.30.0.tar.gz)
 
 <h2 id="2.2">2.2 设置环境变量</h2>
 

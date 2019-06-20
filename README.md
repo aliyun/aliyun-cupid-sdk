@@ -16,7 +16,7 @@
 
 <h2 id="2.1">2.1 下载并解压AliSpark包</h2>
 
-下载 [Spark on MaxCompute](https://github.com/aliyun/aliyun-cupid-sdk) 安装包
+下载 Spark on MaxCompute 安装包
 
 * [spark-1.6.3](http://odps-repo.oss-cn-hangzhou.aliyuncs.com/spark/1.6.3-public/spark-1.6.3-public.tar.gz?spm=a2c4g.11186623.2.11.224b4b69Fkh7LR&file=spark-1.6.3-public.tar.gz)
 

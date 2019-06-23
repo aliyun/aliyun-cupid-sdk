@@ -83,7 +83,7 @@ object OdpsDataFrame extends Logging {
       //val sqlContext = createSQLContext(jsc)
       val projectName = rdd.project
       val tableName = rdd.table
-      val odpsSchema = CupidSession.get.odps.tables().get(projectName, tableName).getSchema()
+      val odpsSchema = CupidSession.get.odps().tables().get(projectName, tableName).getSchema()
       val columns = if (columnNames.isEmpty) {
         odpsSchema.getColumns().asScala.toList
       } else {

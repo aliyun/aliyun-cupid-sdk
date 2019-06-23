@@ -78,7 +78,7 @@ class OdpsRDDWrapper[T: ClassTag](self: RDD[T]) extends Serializable with Loggin
     val (schema, columnsNames) = {
       var tableSchema = new java.util.ArrayList[String]
       var tableColumnsNames = ArrayBuffer[String]()
-      CupidSession.get.odps.tables().
+      CupidSession.get.odps().tables().
         get(projectName, tableName).
         getSchema().getColumns().asScala.zipWithIndex.foreach {
         case (column, index) =>

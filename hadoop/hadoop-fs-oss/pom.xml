@@ -20,13 +20,13 @@
     <parent>
         <groupId>com.aliyun.odps</groupId>
         <artifactId>cupid-root</artifactId>
-        <version>3.3.3-public</version>
+        <version>3.3.8-public</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>com.aliyun.odps</groupId>
     <artifactId>hadoop-fs-oss</artifactId>
-    <version>3.3.3-public</version>
+    <version>3.3.8-public</version>
     <packaging>jar</packaging>
 
     <dependencies>
